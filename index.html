@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entendendo "Bear With Me" - Para Brasileiros</title>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos Globais e Tema Netflix */
+        :root {
+            --netflix-red: #E50914;
+            --netflix-dark: #141414;
+            --netflix-light-dark: #222222;
+            --text-color: #E5E5E5;
+            --accent-gray: #A0A0A0;
+            --border-radius: 8px;
+            --padding-base: 1.5rem;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--netflix-dark);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(to bottom, var(--netflix-dark) 0%, var(--netflix-light-dark) 100%);
+        }
+
+        /* Cabeçalho */
+        .header {
+            background-color: var(--netflix-dark);
+            padding: 1.5rem var(--padding-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid var(--netflix-red);
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--netflix-red);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            margin: 0;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title i {
+            font-size: 0.8em;
+            color: var(--text-color);
+        }
+
+        /* Conteúdo Principal */
+        .main-content {
+            flex-grow: 1;
+            max-width: 900px;
+            margin: 2rem auto;
+            background-color: var(--netflix-light-dark);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            padding: var(--padding-base) 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--netflix-red);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* Acordeão (Dropdown List) */
+        .accordion-item {
+            background-color: var(--netflix-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem var(--padding-base);
+            background-color: var(--netflix-light-dark);
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #333333;
+        }
+
+        .accordion-header i {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            padding: 0 var(--padding-base);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            background-color: var(--netflix-dark);
+        }
+
+        .accordion-content.active {
+            max-height: 500px; /* Ajuste conforme necessário para o conteúdo */
+            padding: var(--padding-base) var(--padding-base);
+        }
+
+        .accordion-content p {
+            margin-bottom: 1em;
+        }
+
+        .accordion-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .accordion-content li {
+            margin-bottom: 0.5em;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        .accordion-content li::before {
+            content: '•';
+            color: var(--netflix-red);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Botões de Áudio */
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #2a2a2a;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            justify-content: center;
+        }
+
+        .audio-button {
+            background-color: var(--netflix-red);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .audio-button:hover {
+            background-color: #CC0812;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .audio-button i {
+            font-size: 1.2em;
+        }
+
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            padding: 1.5rem var(--padding-base);
+            background-color: var(--netflix-dark);
+            color: var(--accent-gray);
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 2px solid var(--netflix-red);
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 1.8rem;
+                text-align: center;
+                display: block;
+            }
+            .header-title i {
+                display: block;
+                margin-bottom: 5px;
+            }
+            .main-content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .section-text {
+                font-size: 1rem;
+            }
+            .accordion-header {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+            .accordion-content {
+                padding: 0.8rem 1rem;
+            }
+            .audio-player {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .audio-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Language buttons for introduction */
+        .intro-language-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-lang-button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background-color: #444;
+            color: var(--text-color);
+        }
+
+        .intro-lang-button.active {
+            background-color: var(--netflix-red);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        .intro-lang-button:hover:not(.active) {
+            background-color: #555;
+            transform: translateY(-1px);
+        }
+
+        .intro-text-content {
+            transition: opacity 0.5s ease-in-out;
+        }
+        .intro-text-content.hidden {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Styling for (Português/English) format */
+        .lang-pair {
+            display: block; /* Ensures each pair is on a new line */
+            margin-bottom: 0.5em; /* Space between pairs */
+            font-size: 0.95em; /* Slightly smaller font for examples */
+        }
+        .lang-pair strong {
+            color: var(--netflix-red); /* Highlight the expression */
+        }
+        .lang-pair em {
+            font-style: normal; /* Remove italic from original <em> */
+            color: var(--accent-gray); /* Distinguish translation */
+        }
+
+        /* Call to Action Box */
+        .call-to-action-box {
+            background-color: var(--netflix-red);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-top: 3rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .call-to-action-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        .call-to-action-box p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .call-to-action-button {
+            background-color: white;
+            color: var(--netflix-red);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .call-to-action-button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Translation Practice Section */
+        .translation-exercise {
+            background-color: #2a2a2a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            padding: 1.5rem;
+        }
+
+        .translation-exercise p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .translation-exercise input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 0.8rem 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .translation-exercise input[type="text"]:focus {
+            outline: none;
+            border-color: var(--netflix-red);
+            box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.5);
+        }
+
+        .translation-exercise .show-answer-btn {
+            background-color: #007bff; /* A nice blue for action */
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .translation-exercise .show-answer-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .translation-exercise .correct-translation {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background-color: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: #76FF03; /* Green for correct answer */
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title"><i class="fas fa-hand-holding"></i> Bear With Me: Um Guia para Brasileiros (A Guide for Brazilians)</h1>
+    </header>
+
+    <main class="main-content">
+        <section id="introduction">
+            <h2 class="section-title">A Importância de "Bear With Me" (The Importance of "Bear With Me")</h2>
+
+            <div class="intro-language-buttons">
+                <button id="intro-lang-pt-btn" class="intro-lang-button active">Português</button>
+                <button id="intro-lang-en-btn" class="intro-lang-button">English</button>
+            </div>
+
+            <div id="intro-pt" class="intro-text-content">
+                <p class="section-text">Para nós, brasileiros, a expressão "bear with me" pode parecer um pouco formal ou até confusa à primeira vista. (For us, Brazilians, the expression "bear with me" might seem a bit formal or even confusing at first glance.) No entanto, ela é **fundamental** no ambiente profissional e em interações formais em inglês, especialmente em contextos de trabalho, atendimento ao cliente ou apresentações. (However, it is **fundamental** in professional environments and formal interactions in English, especially in work contexts, customer service, or presentations.)</p>
+                <p class="section-text">Muitas vezes, nossa tendência é usar "wait" ou "wait a second", que, embora não estejam errados, podem soar um pouco diretos demais ou até impacientes para um ouvido nativo. (Often, our tendency is to use "wait" or "wait a second", which, although not incorrect, can sound a bit too direct or even impatient to a native ear.) "Bear with me" transmite uma ideia de **paciência, compreensão e cooperação**, pedindo gentilmente que a pessoa espere enquanto você resolve algo ou se prepara para continuar. ("Bear with me" conveys an idea of **patience, understanding, and cooperation**, gently asking the person to wait while you resolve something or prepare to continue.)</p>
+                <p class="section-text">É uma forma educada e profissional de dizer "por favor, tenha paciência comigo enquanto eu faço algo" ou "aguarde um momento, estou quase lá". (It's a polite and professional way to say "please, be patient with me while I do something" or "just a moment, I'm almost there".) Usar "bear with me" demonstra fluência, respeito e profissionalismo, tornando suas interações muito mais suaves e eficazes. (Using "bear with me" demonstrates fluency, respect, and professionalism, making your interactions much smoother and more effective.)</p>
+            </div>
+
+            <div id="intro-en" class="intro-text-content hidden">
+                <p class="section-text">For us, Brazilians, the expression "bear with me" might seem a bit formal or even confusing at first glance. However, it is **fundamental** in professional environments and formal interactions in English, especially in work contexts, customer service, or presentations.</p>
+                <p class="section-text">Often, our tendency is to use "wait" or "wait a second", which, although not incorrect, can sound a bit too direct or even impatient to a native ear. "Bear with me" conveys an idea of **patience, understanding, and cooperation**, gently asking the person to wait while you resolve something or prepare to continue.</p>
+                <p class="section-text">It's a polite and professional way to say "please, be patient with me while I do something" or "just a moment, I'm almost there". Using "bear with me" demonstrates fluency, respect, and professionalism, making your interactions much smoother and more effective.</p>
+            </div>
+        </section>
+
+        <section id="what-it-means">
+            <h2 class="section-title">O que Significa "Bear With Me"? (What Does "Bear With Me" Mean?)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Significado Principal (Main Meaning) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>A expressão "bear with me" significa **"tenha paciência comigo"** (have patience with me), **"aguarde um momento"** (wait a moment) ou **"suporte-me enquanto eu faço algo"** (bear with me while I do something). Ela é usada para pedir um pouco de tempo ou compreensão enquanto você está ocupado, resolvendo um problema, procurando algo, ou se preparando para explicar algo complexo. (It is used to ask for a little time or understanding while you are busy, solving a problem, looking for something, or preparing to explain something complex.)</p>
+                    <p>É um pedido cortês para que a outra pessoa seja paciente e não se impaciente, indicando que você está ciente da espera e que a situação será resolvida em breve. (It is a polite request for the other person to be patient and not get impatient, indicating that you are aware of the wait and that the situation will be resolved soon.)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="wait-vs-bear-with-me">
+            <h2 class="section-title">"Wait" vs. "Bear With Me"</h2>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    A Diferença Crucial (The Crucial Difference) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>É comum para brasileiros usarem "wait" em situações onde "bear with me" seria mais apropriado. No entanto, há uma diferença importante: (It's common for Brazilians to use "wait" in situations where "bear with me" would be more appropriate. However, there's an important difference:)</p>
+                    <ul>
+                        <li>
+                            <span class="lang-pair">**"Wait" (Esperar fisicamente):** Geralmente se refere a uma espera física ou por um evento. Por exemplo, "Wait for me at the corner" (Me espere na esquina) ou "I'm waiting for the bus" (Estou esperando o ônibus). Não implica um pedido de paciência para uma ação sua. <br> <em>(**"Wait" (Physical waiting):** Generally refers to a physical wait or for an event. For example, "Wait for me at the corner" or "I'm waiting for the bus". It doesn't imply a request for patience for an action of yours.)</em></span>
+                        </li>
+                        <li>
+                            <span class="lang-pair">**"Bear with me" (Tenha paciência/compreensão):** Usado quando você precisa de um tempo para fazer algo, resolver um problema, ou se preparar para continuar. É um pedido de compreensão pela demora, não apenas uma instrução para esperar. <br> <em>(**"Bear with me" (Have patience/understanding):** Used when you need time to do something, solve a problem, or prepare to continue. It's a request for understanding for the delay, not just an instruction to wait.)</em></span>
+                        </li>
+                    </ul>
+                    <p>Em contextos profissionais, "bear with me" é a escolha mais educada e profissional quando você precisa de um breve momento para organizar seus pensamentos, encontrar algo, ou resolver um pequeno contratempo. (In professional contexts, "bear with me" is the most polite and professional choice when you need a brief moment to organize your thoughts, find something, or resolve a small setback.)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="work-contexts">
+            <h2 class="section-title">Contextos de Trabalho (Work Contexts)</h2>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    1. Problemas Técnicos / Carregamento (Technical Issues / Loading) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>Quando algo está carregando, processando, ou você está resolvendo um pequeno problema técnico. (When something is loading, processing, or you are solving a small technical problem.)</p>
+                    <ul>
+                        <li><span class="lang-pair">"The system is a bit slow today, **bear with me** while it loads." <br> <em>(O sistema está um pouco lento hoje, **tenha paciência comigo** enquanto carrega.)</em></span></li>
+                        <li><span class="lang-pair">"I'm just restarting my computer, **bear with me** for a moment." <br> <em>(Estou apenas reiniciando meu computador, **aguarde um momento**.)</em></span></li>
+                        <li><span class="lang-pair">"We're experiencing some network issues, please **bear with me** as I try to reconnect." <br> <em>(Estamos com alguns problemas de rede, por favor, **tenha paciência comigo** enquanto tento reconectar.)</em></span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    2. Encontrando Informações / Documentos (Finding Information / Documents) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>Quando você precisa de alguns segundos para localizar um arquivo, dado ou informação. (When you need a few seconds to locate a file, data, or information.)</p>
+                    <ul>
+                        <li><span class="lang-pair">"**Bear with me**, I'm just pulling up that report you asked for." <br> <em>(**Aguarde um momento**, estou apenas puxando o relatório que você pediu.)</em></span></li>
+                        <li><span class="lang-pair">"Let me check my notes, **bear with me** for a second." <br> <em>(Deixe-me verificar minhas anotações, **tenha paciência comigo** por um segundo.)</em></span></li>
+                        <li><span class="lang-pair">"I know I saved it somewhere... **bear with me**." <br> <em>(Eu sei que salvei em algum lugar... **tenha paciência comigo**.)</em></span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    3. Interrupções Breves (Brief Interruptions) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>Quando você precisa se ausentar rapidamente ou lidar com outra coisa por um instante. (When you need to briefly step away or deal with something else for a moment.)</p>
+                    <ul>
+                        <li><span class="lang-pair">"**Bear with me** for a moment, I need to take this urgent call." <br> <em>(**Tenha paciência comigo** por um momento, preciso atender essa ligação urgente.)</em></span></li>
+                        <li><span class="lang-pair">"My colleague just walked in, **bear with me** while I quickly speak to them." <br> <em>(Meu colega acabou de entrar, **aguarde um momento** enquanto falo rapidamente com ele.)</em></span></li>
+                        <li><span class="lang-pair">"I'll be right back, just **bear with me**." <br> <em>(Já volto, apenas **tenha paciência comigo**.)</em></span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    4. Explicações Complexas / Detalhadas (Complex / Detailed Explanations) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>Quando você vai explicar algo que pode levar tempo ou exigir atenção extra do ouvinte. (When you are going to explain something that may take time or require extra attention from the listener.)</p>
+                    <ul>
+                        <li><span class="lang-pair">"This process is a bit complicated, so please **bear with me** as I explain each step." <br> <em>(Este processo é um pouco complicado, então por favor, **tenha paciência comigo** enquanto explico cada passo.)</em></span></li>
+                        <li><span class="lang-pair">"I'm going to walk you through the new software, so **bear with me** if it takes a while." <br> <em>(Vou te guiar pelo novo software, então **tenha paciência comigo** se demorar um pouco.)</em></span></li>
+                        <li><span class="lang-pair">"**Bear with me**, I'm trying to paint a full picture here." <br> <em>(**Tenha paciência comigo**, estou tentando dar uma visão completa aqui.)</em></span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="variations">
+            <h2 class="section-title">Variações e Respostas Comuns (Variations and Common Responses)</h2>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Variações (Variations) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><span class="lang-pair">"Please **bear with me**." (Por favor, tenha paciência comigo.) - Mais formal. (More formal.)</span></li>
+                        <li><span class="lang-pair">"**Bear with me** a moment." (Aguarde um momento.) - Adiciona um senso de brevidade. (Wait a moment. - Adds a sense of brevity.)</span></li>
+                        <li><span class="lang-pair">"**Bear with me** for a second/minute." (Aguarde um segundo/minuto.) - Também indica brevidade. (Wait a second/minute. - Also indicates brevity.)</span></li>
+                        <li><span class="lang-pair">"Thank you for **bearing with me**." (Obrigado por ter tido paciência comigo.) - Usado após a espera. (Thank you for having patience with me. - Used after the wait.)</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    Como Responder (How to Respond) <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p>Quando alguém te pede para "bear with me", você pode responder de forma simples e educada: (When someone asks you to "bear with me", you can respond simply and politely:)</p>
+                    <ul>
+                        <li><span class="lang-pair">"No problem." (Sem problemas.)</span></li>
+                        <li><span class="lang-pair">"Take your time." (Sem pressa / Leve o tempo que precisar.)</span></li>
+                        <li><span class="lang-pair">"I'll wait." (Eu espero.)</span></li>
+                        <li><span class="lang-pair">"Sure, no worries." (Claro, sem problemas.)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="pronunciation">
+            <h2 class="section-title">Pronúncia de "BEAR" (Pronunciation of "BEAR")</h2>
+            <p class="section-text" style="text-align: center;">A palavra "bear" pode ser um pouco tricky! Clique para ouvir a pronúncia correta. (The word "bear" can be a bit tricky! Click to hear the correct pronunciation.)</p>
+            <div class="audio-player">
+                <span>Palavra: <strong>BEAR</strong> (Word: <strong>BEAR</strong>)</span>
+                <button class="audio-button" data-audio-word="bear">
+                    <i class="fas fa-volume-up"></i> Ouvir "BEAR" (Listen to "BEAR")
+                </button>
+            </div>
+            <div class="audio-player" style="margin-top: 10px;">
+                <span>Palavra: <strong>BEARING</strong> (Word: <strong>BEARING</strong>)</span>
+                <button class="audio-button" data-audio-word="bearing">
+                    <i class="fas fa-volume-up"></i> Ouvir "BEARING" (Listen to "BEARING")
+                </button>
+            </div>
+            <p class="section-text" style="text-align: center; margin-top: 1.5rem;">Lembre-se: "bear" aqui tem o som de "bér", como em "par" ou "ar" em inglês, mas com um "b" no início. (Remember: "bear" here sounds like "ber", similar to "pair" or "air" in English, but with a "b" at the beginning.)</p>
+        </section>
+
+        <section id="translation-practice">
+            <h2 class="section-title">Prática de Tradução (Translation Practice)</h2>
+            <p class="section-text" style="text-align: center;">Traduza as frases abaixo para o inglês usando "bear with me" quando apropriado. (Translate the sentences below into English using "bear with me" where appropriate.)</p>
+
+            <div class="translation-exercise">
+                <p>1. Por favor, tenha paciência comigo enquanto eu configuro a apresentação. (Please, bear with me while I set up the presentation.)</p>
+                <input type="text" placeholder="Sua tradução aqui... (Your translation here...)">
+                <button class="show-answer-btn">Mostrar Resposta (Show Answer)</button>
+                <div class="correct-translation">
+                    Resposta Correta: "Please bear with me while I set up the presentation."
+                </div>
+            </div>
+
+            <div class="translation-exercise">
+                <p>2. Ele me pediu para ter paciência com ele enquanto ele encontrava os documentos. (He asked me to bear with him while he found the documents.)</p>
+                <input type="text" placeholder="Sua tradução aqui... (Your translation here...)">
+                <button class="show-answer-btn">Mostrar Resposta (Show Answer)</button>
+                <div class="correct-translation">
+                    Resposta Correta: "He asked me to bear with him while he found the documents."
+                </div>
+            </div>
+
+            <div class="translation-exercise">
+                <p>3. A conexão está instável, por favor, tenha paciência comigo. (The connection is unstable, please bear with me.)</p>
+                <input type="text" placeholder="Sua tradução aqui... (Your translation here...)">
+                <button class="show-answer-btn">Mostrar Resposta (Show Answer)</button>
+                <div class="correct-translation">
+                    Resposta Correta: "The connection is unstable, please bear with me."
+                </div>
+            </div>
+
+            <div class="translation-exercise">
+                <p>4. Obrigado por ter tido paciência comigo durante a explicação. (Thank you for bearing with me during the explanation.)</p>
+                <input type="text" placeholder="Sua tradução aqui... (Your translation here...)">
+                <button class="show-answer-btn">Mostrar Resposta (Show Answer)</button>
+                <div class="correct-translation">
+                    Resposta Correta: "Thank you for bearing with me during the explanation."
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion">
+            <h2 class="section-title">Conclusão (Conclusion)</h2>
+            <p class="section-text">Dominar a expressão "bear with me" é um pequeno passo que faz uma grande diferença na sua comunicação em inglês. (Mastering the expression "bear with me" is a small step that makes a big difference in your English communication.) Ela eleva o nível da sua formalidade e polidez, mostrando que você entende as nuances da etiqueta profissional anglo-saxônica. (It elevates the level of your formality and politeness, showing that you understand the nuances of Anglo-Saxon professional etiquette.)</p>
+            <p class="section-text">Pratique usá-la em situações apropriadas e você verá como suas interações se tornarão mais fluidas e respeitosas. (Practice using it in appropriate situations and you will see how your interactions will become smoother and more respectful.) Continue explorando e aprimorando seu inglês! (Keep exploring and improving your English!)</p>
+        </section>
+
+        <section id="call-to-action">
+            <div class="call-to-action-box">
+                <h3>Mude Sua Comunicação: Troque "Wait" por "Bear With Me"! (Change Your Communication: Swap "Wait" for "Bear With Me"!)</h3>
+                <p>Agora que você entende a nuance, comece a aplicar "bear with me" em suas interações profissionais. Sua fluência e profissionalismo serão notados! (Now that you understand the nuance, start applying "bear with me" in your professional interactions. Your fluency and professionalism will be noticed!)</p>
+                <button class="call-to-action-button" onclick="alert('Ótima escolha! Continue praticando para aprimorar seu inglês profissional!');">
+                    Começar a Usar Agora! (Start Using Now!)
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Developed by Daby © 2025</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lógica para os acordeões (dropdowns)
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling; // Pega o conteúdo do acordeão
+                    const icon = header.querySelector('i'); // Pega o ícone
+
+                    // Fecha outros acordeões abertos (opcional, mas bom para UX)
+                    accordionHeaders.forEach(otherHeader => {
+                        if (otherHeader !== header && otherHeader.classList.contains('active')) {
+                            otherHeader.classList.remove('active');
+                            otherHeader.nextElementSibling.classList.remove('active');
+                            otherHeader.querySelector('i').style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Alterna a classe 'active' no cabeçalho e no conteúdo
+                    header.classList.toggle('active');
+                    content.classList.toggle('active');
+
+                    // Gira o ícone de chevron
+                    if (header.classList.contains('active')) {
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+
+            // Lógica para os botões de áudio usando SpeechSynthesisUtterance
+            const audioButtons = document.querySelectorAll('.audio-button');
+            const synth = window.speechSynthesis;
+
+            audioButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const wordToSpeak = button.dataset.audioWord;
+                    if (wordToSpeak && synth) {
+                        const utterance = new SpeechSynthesisUtterance(wordToSpeak);
+                        utterance.lang = 'en-US'; // Define o idioma para inglês americano para pronúncia correta
+                        synth.speak(utterance);
+                    } else {
+                        console.error('Web Speech API not supported or word not defined.');
+                    }
+                });
+            });
+
+            // Lógica para alternar a introdução entre português e inglês
+            const introLangPtBtn = document.getElementById('intro-lang-pt-btn');
+            const introLangEnBtn = document.getElementById('intro-lang-en-btn');
+            const introPtContent = document.getElementById('intro-pt');
+            const introEnContent = document.getElementById('intro-en');
+
+            function showIntroLanguage(lang) {
+                if (lang === 'pt') {
+                    introPtContent.classList.remove('hidden');
+                    introEnContent.classList.add('hidden');
+                    introLangPtBtn.classList.add('active');
+                    introLangEnBtn.classList.remove('active');
+                } else if (lang === 'en') {
+                    introPtContent.classList.add('hidden');
+                    introEnContent.classList.remove('hidden');
+                    introLangPtBtn.classList.remove('active');
+                    introLangEnBtn.classList.add('active');
+                }
+            }
+
+            introLangPtBtn.addEventListener('click', () => showIntroLanguage('pt'));
+            introLangEnBtn.addEventListener('click', () => showIntroLanguage('en'));
+
+            // Lógica para os botões "Mostrar Resposta" na seção de prática de tradução
+            const showAnswerButtons = document.querySelectorAll('.translation-exercise .show-answer-btn');
+
+            showAnswerButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const parentExercise = button.closest('.translation-exercise');
+                    const correctAnswerDiv = parentExercise.querySelector('.correct-translation');
+                    
+                    if (correctAnswerDiv) {
+                        correctAnswerDiv.style.display = 'block'; // Mostra a div da resposta
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
